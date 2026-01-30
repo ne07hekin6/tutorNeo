@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f2e7;
+  --bg-2: #e9f2f2;
+  --ink: #15232b;
+  --muted: #51636b;
+  --accent: #f06a4f;
+  --accent-2: #1f7a8c;
+  --card: #fffaf2;
+  --line: #e3ddd0;
+  --soft: #f2ede2;
+  --radius: 20px;
+  --shadow: 0 24px 60px rgba(12, 31, 38, 0.14);
+  --font-body: var(--font-source-sans);
+  --font-display: var(--font-space-grotesk);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-body);
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(
+      circle at 18% 15%,
+      rgba(240, 106, 79, 0.16),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(31, 122, 140, 0.18),
+      transparent 45%
+    ),
+    linear-gradient(135deg, var(--bg), var(--bg-2));
+  color: var(--ink);
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), "Segoe UI", sans-serif;
+  letter-spacing: -0.015em;
+}
+
+.glass-card {
+  background: color-mix(in srgb, var(--card) 88%, white 12%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
