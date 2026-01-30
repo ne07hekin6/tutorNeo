@@ -88,7 +88,10 @@ function normalizeEvaluation(value: unknown) {
   };
 
   const status = evaluation.status === "Aprobado" ? "Aprobado" : "En proceso";
-  const score = Number.isFinite(evaluation.score) ? evaluation.score : 0;
+  const rawScore =
+    typeof evaluation.score === "number" && Number.isFinite(evaluation.score)
+      ? evaluation.score
+      : 0;
   const weakConcepts = Array.isArray(evaluation.weakConcepts)
     ? evaluation.weakConcepts.filter((item) => typeof item === "string")
     : [];
@@ -98,7 +101,7 @@ function normalizeEvaluation(value: unknown) {
 
   return {
     status,
-    score: Math.max(0, Math.min(100, Math.round(score))),
+    score: Math.max(0, Math.min(100, Math.round(rawScore))),
     weakConcepts,
     nextActions,
     summary:
