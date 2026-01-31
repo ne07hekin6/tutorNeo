@@ -1,60 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f6f2e7;
-  --bg-2: #e9f2f2;
-  --ink: #15232b;
-  --muted: #51636b;
-  --accent: #f06a4f;
-  --accent-2: #1f7a8c;
-  --card: #fffaf2;
-  --line: #e3ddd0;
-  --soft: #f2ede2;
+  --bg: #f1f7fb;
+  --bg-2: #e6f1f7;
+  --ink: #12212b;
+  --muted: #4b6474;
+  --accent: #0b9bd7;
+  --accent-2: #0673b7;
+  --card: #f9fcff;
+  --line: #c7dceb;
+  --soft: #e8f1f7;
   --radius: 20px;
-  --shadow: 0 24px 60px rgba(12, 31, 38, 0.14);
+  --shadow: 0 24px 60px rgba(8, 34, 52, 0.16);
   --font-body: var(--font-source-sans);
   --font-display: var(--font-space-grotesk);
   --field-bg: #ffffff;
   --field-text: var(--ink);
-  --field-placeholder: #7d8c92;
+  --field-placeholder: #6b8391;
   --field-border: var(--line);
-  --chip-bg: rgba(255, 255, 255, 0.72);
+  --chip-bg: rgba(242, 248, 252, 0.9);
   --chip-text: var(--muted);
-  --panel-bg: #fffdf7;
+  --panel-bg: #f0f7fc;
   --bubble-assistant-bg: #ffffff;
-  --bubble-muted-bg: #f8f1e7;
-  --callout-bg: #f6efe4;
-  --scroll-track: #efe6d7;
-  --scroll-thumb: #c6b6a2;
-  --scroll-thumb-2: #b89f87;
-  --scroll-thumb-hover: #a88c70;
+  --bubble-muted-bg: #e7f3fa;
+  --callout-bg: #e3f0f8;
+  --scroll-track: #dbeaf4;
+  --scroll-thumb: #aac6da;
+  --scroll-thumb-2: #97b9d2;
+  --scroll-thumb-hover: #7fa8c6;
+  --glow-1: rgba(11, 155, 215, 0.18);
+  --glow-2: rgba(6, 115, 183, 0.12);
 }
 
 .dark {
-  --bg: #0c1418;
-  --bg-2: #0f1b22;
-  --ink: #e7edf0;
-  --muted: #9fb0b8;
-  --accent: #ff7a59;
-  --accent-2: #49c3d6;
-  --card: #121c22;
-  --line: #22313a;
-  --soft: #162229;
-  --shadow: 0 24px 60px rgba(3, 8, 11, 0.55);
-  --field-bg: #1b2730;
-  --field-text: #e7edf0;
-  --field-placeholder: #8da0a8;
-  --field-border: #2a3a44;
-  --chip-bg: rgba(18, 27, 33, 0.85);
-  --chip-text: #a7b6bd;
-  --panel-bg: #1a252c;
-  --bubble-assistant-bg: #18242b;
-  --bubble-muted-bg: #15222a;
-  --callout-bg: #16222a;
-  --scroll-track: #111a20;
-  --scroll-thumb: #263843;
-  --scroll-thumb-2: #33505c;
-  --scroll-thumb-hover: #3f6170;
+  --bg: #0a141c;
+  --bg-2: #0c1a24;
+  --ink: #e6f2f8;
+  --muted: #9cb4c4;
+  --accent: #1fb0e5;
+  --accent-2: #0f7fc4;
+  --card: #0f1c26;
+  --line: #214255;
+  --soft: #132432;
+  --shadow: 0 24px 60px rgba(5, 16, 24, 0.6);
+  --field-bg: #152633;
+  --field-text: #e6f2f8;
+  --field-placeholder: #8aa4b3;
+  --field-border: #2a5166;
+  --chip-bg: rgba(13, 28, 38, 0.88);
+  --chip-text: #a8bed0;
+  --panel-bg: #132735;
+  --bubble-assistant-bg: #142735;
+  --bubble-muted-bg: #112331;
+  --callout-bg: #112736;
+  --scroll-track: #0f2230;
+  --scroll-thumb: #2d4e63;
+  --scroll-thumb-2: #3a6578;
+  --scroll-thumb-hover: #3f718c;
+  --glow-1: rgba(31, 176, 229, 0.18);
+  --glow-2: rgba(15, 127, 196, 0.14);
 }
 
 @theme inline {
@@ -67,12 +71,12 @@ body {
   min-height: 100vh;
   background: radial-gradient(
       circle at 18% 15%,
-      rgba(240, 106, 79, 0.16),
+      var(--glow-1),
       transparent 45%
     ),
     radial-gradient(
       circle at 85% 10%,
-      rgba(31, 122, 140, 0.18),
+      var(--glow-2),
       transparent 45%
     ),
     linear-gradient(135deg, var(--bg), var(--bg-2));

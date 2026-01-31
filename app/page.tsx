@@ -188,7 +188,7 @@ export default function Home() {
     ? evaluation?.status === "Aprobado"
       ? "bg-emerald-500/15 text-emerald-800 border-emerald-300 dark:bg-emerald-400/15 dark:text-emerald-100 dark:border-emerald-500/40"
       : "bg-amber-400/20 text-amber-900 border-amber-300 dark:bg-amber-400/15 dark:text-amber-100 dark:border-amber-500/40"
-    : "bg-slate-200 text-slate-700 border-slate-300 dark:bg-slate-700/35 dark:text-slate-200 dark:border-slate-600/60";
+    : "bg-[color:var(--soft)] text-[color:var(--accent-2)] border-[color:var(--line)] dark:bg-[color:var(--panel-bg)] dark:text-[color:var(--accent)] dark:border-[color:var(--line)]";
 
   const progressWidth = `${evaluation?.score ?? 0}%`;
 
