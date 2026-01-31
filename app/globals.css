@@ -14,6 +14,47 @@
   --shadow: 0 24px 60px rgba(12, 31, 38, 0.14);
   --font-body: var(--font-source-sans);
   --font-display: var(--font-space-grotesk);
+  --field-bg: #ffffff;
+  --field-text: var(--ink);
+  --field-placeholder: #7d8c92;
+  --field-border: var(--line);
+  --chip-bg: rgba(255, 255, 255, 0.72);
+  --chip-text: var(--muted);
+  --panel-bg: #fffdf7;
+  --bubble-assistant-bg: #ffffff;
+  --bubble-muted-bg: #f8f1e7;
+  --callout-bg: #f6efe4;
+  --scroll-track: #efe6d7;
+  --scroll-thumb: #c6b6a2;
+  --scroll-thumb-2: #b89f87;
+  --scroll-thumb-hover: #a88c70;
+}
+
+.dark {
+  --bg: #0c1418;
+  --bg-2: #0f1b22;
+  --ink: #e7edf0;
+  --muted: #9fb0b8;
+  --accent: #ff7a59;
+  --accent-2: #49c3d6;
+  --card: #121c22;
+  --line: #22313a;
+  --soft: #162229;
+  --shadow: 0 24px 60px rgba(3, 8, 11, 0.55);
+  --field-bg: #1b2730;
+  --field-text: #e7edf0;
+  --field-placeholder: #8da0a8;
+  --field-border: #2a3a44;
+  --chip-bg: rgba(18, 27, 33, 0.85);
+  --chip-text: #a7b6bd;
+  --panel-bg: #1a252c;
+  --bubble-assistant-bg: #18242b;
+  --bubble-muted-bg: #15222a;
+  --callout-bg: #16222a;
+  --scroll-track: #111a20;
+  --scroll-thumb: #263843;
+  --scroll-thumb-2: #33505c;
+  --scroll-thumb-hover: #3f6170;
 }
 
 @theme inline {
@@ -39,6 +80,38 @@ body {
   font-family: var(--font-body), "Segoe UI", sans-serif;
 }
 
+.scrollbar-neo {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+  scrollbar-gutter: stable;
+}
+
+.scrollbar-neo::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.scrollbar-neo::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--line) 40%, transparent);
+}
+
+.scrollbar-neo::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--scroll-thumb), var(--scroll-thumb-2));
+  border-radius: 999px;
+  border: 3px solid var(--scroll-track);
+  background-clip: padding-box;
+}
+
+.scrollbar-neo::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    var(--scroll-thumb-hover),
+    var(--scroll-thumb-2)
+  );
+}
+
 .font-display {
   font-family: var(--font-display), "Segoe UI", sans-serif;
   letter-spacing: -0.015em;
@@ -49,4 +122,44 @@ body {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+}
+
+.chip {
+  background: var(--chip-bg);
+  color: var(--chip-text);
+}
+
+.panel-lite {
+  background: var(--panel-bg);
+  border-color: var(--line);
+}
+
+.bubble-assistant {
+  background: var(--bubble-assistant-bg);
+  color: var(--ink);
+}
+
+.bubble-muted {
+  background: var(--bubble-muted-bg);
+  color: var(--muted);
+}
+
+.callout {
+  background: var(--callout-bg);
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+.field {
+  background: var(--field-bg);
+  border-color: var(--field-border);
+  color: var(--field-text);
+}
+
+.field::placeholder {
+  color: var(--field-placeholder);
+}
+
+.field:read-only {
+  opacity: 0.85;
 }

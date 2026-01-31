@@ -141,6 +141,10 @@ export default function Home() {
     "tutorneo.api",
     DEFAULT_API,
   );
+  const [theme, setTheme] = useLocalStorageState<"light" | "dark">(
+    "tutorneo.theme",
+    "light",
+  );
   const [taskDraft, setTaskDraft] = useState(taskConfig);
   const [studentDraft, setStudentDraft] = useState(student);
   const [input, setInput] = useState("");
@@ -163,6 +167,12 @@ export default function Home() {
   }, [apiConfig, setApiConfig]);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    root.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
+  useEffect(() => {
     const container = chatScrollRef.current;
     if (!container) return;
     container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
@@ -176,9 +186,9 @@ export default function Home() {
   const hasEvaluation = Boolean(evaluation);
   const statusTone = hasEvaluation
     ? evaluation?.status === "Aprobado"
-      ? "bg-emerald-500/15 text-emerald-800 border-emerald-300"
-      : "bg-amber-400/20 text-amber-900 border-amber-300"
-    : "bg-slate-200 text-slate-700 border-slate-300";
+      ? "bg-emerald-500/15 text-emerald-800 border-emerald-300 dark:bg-emerald-400/15 dark:text-emerald-100 dark:border-emerald-500/40"
+      : "bg-amber-400/20 text-amber-900 border-amber-300 dark:bg-amber-400/15 dark:text-amber-100 dark:border-amber-500/40"
+    : "bg-slate-200 text-slate-700 border-slate-300 dark:bg-slate-700/35 dark:text-slate-200 dark:border-slate-600/60";
 
   const progressWidth = `${evaluation?.score ?? 0}%`;
 
@@ -302,9 +312,13 @@ export default function Home() {
         <header className="glass-card flex flex-col gap-4 border border-[var(--line)] px-6 py-5 md:flex-row md:items-center md:justify-between">
           <div>
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl border border-[var(--line)] bg-white/80 p-2 shadow-sm">
+              <div className="panel-lite rounded-2xl border p-2 shadow-sm">
                 <Image
-                  src="/logoNeoTransparente.png"
+                  src={
+                    theme === "dark"
+                      ? "/logoNeoTransparenteLight.png"
+                      : "/logoNeoTransparente.png"
+                  }
                   alt="Neo Sistema Educativo"
                   width={120}
                   height={48}
@@ -325,20 +339,29 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-[var(--line)] bg-white/70 px-3 py-1 text-xs text-[color:var(--muted)]">
+            <span className="chip rounded-full border px-3 py-1 text-xs">
               Duracion estimada: 8-12 min
             </span>
-            <span className="rounded-full border border-[var(--line)] bg-white/70 px-3 py-1 text-xs text-[color:var(--muted)]">
+            <span className="chip rounded-full border px-3 py-1 text-xs">
               Configuracion docente: 30s
             </span>
-            <span className="rounded-full border border-[var(--line)] bg-[color:var(--soft)] px-3 py-1 text-xs text-[color:var(--ink)]">
+            <span className="chip rounded-full border px-3 py-1 text-xs text-[color:var(--ink)]">
               POC UI
             </span>
+            <button
+              className="chip rounded-full border px-3 py-1 text-xs transition hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
+              type="button"
+              onClick={() =>
+                setTheme((current) => (current === "dark" ? "light" : "dark"))
+              }
+            >
+              {theme === "dark" ? "Modo claro" : "Modo oscuro"}
+            </button>
           </div>
         </header>
 
         <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(280px,1fr)_minmax(520px,2.3fr)_minmax(280px,1fr)]">
-          <section className="flex min-h-0 flex-col gap-4 overflow-y-auto">
+          <section className="scrollbar-neo flex min-h-0 flex-col gap-4 overflow-y-auto">
             <div className="glass-card p-5">
               <h2 className="font-display text-lg">Configuracion de tarea</h2>
               <p className="text-xs text-[color:var(--muted)]">
@@ -350,7 +373,7 @@ export default function Home() {
                   Tema
                 </label>
                 <input
-                  className="w-full rounded-xl border border-[var(--line)] bg-white/80 px-3 py-2 text-sm"
+                  className="field w-full rounded-xl border px-3 py-2 text-sm"
                   value={taskDraft.topic}
                   onChange={(event) =>
                     setTaskDraft({ ...taskDraft, topic: event.target.value })
@@ -360,7 +383,7 @@ export default function Home() {
                   Objetivo
                 </label>
                 <textarea
-                  className="min-h-[80px] w-full rounded-xl border border-[var(--line)] bg-white/80 px-3 py-2 text-sm"
+                  className="field min-h-[80px] w-full rounded-xl border px-3 py-2 text-sm"
                   value={taskDraft.objective}
                   onChange={(event) =>
                     setTaskDraft({
@@ -375,7 +398,7 @@ export default function Home() {
                       Materia
                     </label>
                     <input
-                      className="mt-2 w-full rounded-xl border border-[var(--line)] bg-white/80 px-3 py-2 text-sm"
+                      className="field mt-2 w-full rounded-xl border px-3 py-2 text-sm"
                       value={taskDraft.subject}
                       onChange={(event) =>
                         setTaskDraft({
@@ -390,7 +413,7 @@ export default function Home() {
                       Grado
                     </label>
                     <input
-                      className="mt-2 w-full rounded-xl border border-[var(--line)] bg-white/80 px-3 py-2 text-sm"
+                      className="field mt-2 w-full rounded-xl border px-3 py-2 text-sm"
                       value={taskDraft.grade}
                       onChange={(event) =>
                         setTaskDraft({
@@ -406,7 +429,7 @@ export default function Home() {
                     Duracion (min)
                   </label>
                   <input
-                    className="mt-2 w-full rounded-xl border border-[var(--line)] bg-white/80 px-3 py-2 text-sm"
+                    className="field mt-2 w-full rounded-xl border px-3 py-2 text-sm"
                     value={taskDraft.durationMin}
                     onChange={(event) =>
                       setTaskDraft({
@@ -457,7 +480,7 @@ export default function Home() {
                   Nombre
                 </label>
                 <input
-                  className="w-full rounded-xl border border-[var(--line)] bg-white/80 px-3 py-2 text-sm"
+                  className="field w-full rounded-xl border px-3 py-2 text-sm"
                   value={studentDraft.name}
                   onChange={(event) =>
                     setStudentDraft({
@@ -472,7 +495,7 @@ export default function Home() {
                       Edad
                     </label>
                     <input
-                      className="mt-2 w-full rounded-xl border border-[var(--line)] bg-white/80 px-3 py-2 text-sm"
+                      className="field mt-2 w-full rounded-xl border px-3 py-2 text-sm"
                       value={studentDraft.age}
                       onChange={(event) =>
                         setStudentDraft({
@@ -487,7 +510,7 @@ export default function Home() {
                       Curso
                     </label>
                     <input
-                      className="mt-2 w-full rounded-xl border border-[var(--line)] bg-white/80 px-3 py-2 text-sm"
+                      className="field mt-2 w-full rounded-xl border px-3 py-2 text-sm"
                       value={studentDraft.course}
                       onChange={(event) =>
                         setStudentDraft({
@@ -502,7 +525,7 @@ export default function Home() {
                   Fortalezas
                 </label>
                 <input
-                  className="w-full rounded-xl border border-[var(--line)] bg-white/80 px-3 py-2 text-sm"
+                  className="field w-full rounded-xl border px-3 py-2 text-sm"
                   value={studentDraft.strengths}
                   onChange={(event) =>
                     setStudentDraft({
@@ -515,7 +538,7 @@ export default function Home() {
                   Dificultades
                 </label>
                 <input
-                  className="w-full rounded-xl border border-[var(--line)] bg-white/80 px-3 py-2 text-sm"
+                  className="field w-full rounded-xl border px-3 py-2 text-sm"
                   value={studentDraft.challenges}
                   onChange={(event) =>
                     setStudentDraft({
@@ -556,7 +579,7 @@ export default function Home() {
 
           </section>
 
-          <section className="flex min-h-0 flex-col gap-4 overflow-y-auto">
+          <section className="scrollbar-neo flex min-h-0 flex-col gap-4 overflow-y-auto">
             <div className="glass-card flex min-h-[420px] flex-col p-5">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
@@ -589,14 +612,14 @@ export default function Home() {
               </div>
               <div
                 ref={chatScrollRef}
-                className="mt-4 flex-1 space-y-3 overflow-y-auto pr-2"
+                className="scrollbar-neo mt-4 flex-1 space-y-3 overflow-y-auto pr-2"
               >
                 {messages.map((message) => (
                   <div
                     key={message.id}
                     className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
                       message.role === "assistant"
-                        ? "bg-white/90 text-[color:var(--ink)]"
+                        ? "bubble-assistant"
                         : "ml-auto bg-[color:var(--accent)]/15 text-[color:var(--ink)]"
                     }`}
                   >
@@ -609,7 +632,7 @@ export default function Home() {
                   </div>
                 ))}
                 {isSending && (
-                  <div className="max-w-[70%] rounded-2xl bg-white/90 px-4 py-3 text-sm text-[color:var(--muted)]">
+                  <div className="bubble-muted max-w-[70%] rounded-2xl px-4 py-3 text-sm">
                     TutorNeo esta pensando...
                   </div>
                 )}
@@ -619,7 +642,7 @@ export default function Home() {
               )}
               <div className="mt-4 flex items-center gap-3">
                 <input
-                  className="flex-1 rounded-2xl border border-[var(--line)] bg-white/90 px-4 py-3 text-sm"
+                  className="field flex-1 rounded-2xl border px-4 py-3 text-sm"
                   placeholder="Escribi la respuesta del alumno..."
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
@@ -641,7 +664,7 @@ export default function Home() {
             
           </section>
 
-          <section className="flex min-h-0 flex-col gap-4 overflow-y-auto">
+          <section className="scrollbar-neo flex min-h-0 flex-col gap-4 overflow-y-auto">
             <div className="glass-card p-5">
               <h2 className="font-display text-lg">Evidencia de comprensión</h2>
               <p className="text-xs text-[color:var(--muted)]">
@@ -672,13 +695,13 @@ export default function Home() {
                 />
               </div>
               {!hasEvaluation && (
-                <div className="mt-4 rounded-xl border border-dashed border-[var(--line)] bg-white/70 p-3 text-xs text-[color:var(--muted)]">
+                <div className="callout mt-4 rounded-xl border border-dashed p-3 text-xs">
                   Envia respuestas o inicia el tutor para generar un diagnostico
                   real.
                 </div>
               )}
               <div className="mt-4 grid gap-3 md:grid-cols-2">
-                <div className="rounded-xl border border-[var(--line)] bg-white/80 p-3">
+                <div className="panel-lite rounded-xl border p-3">
                   <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
                     Conceptos flojos
                   </p>
@@ -691,7 +714,7 @@ export default function Home() {
                     ))}
                   </ul>
                 </div>
-                <div className="rounded-xl border border-[var(--line)] bg-white/80 p-3">
+                <div className="panel-lite rounded-xl border p-3">
                   <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
                     Acciones rapidas
                   </p>
@@ -706,7 +729,7 @@ export default function Home() {
                 </div>
               </div>
               {evaluation?.summary && (
-                <div className="mt-4 rounded-xl border border-[var(--line)] bg-white/80 p-3">
+                <div className="panel-lite mt-4 rounded-xl border p-3">
                   <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">
                     Resumen
                   </p>
