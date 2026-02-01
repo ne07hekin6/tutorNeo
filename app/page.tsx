@@ -186,7 +186,7 @@ export default function Home() {
   const hasEvaluation = Boolean(evaluation);
   const statusTone = hasEvaluation
     ? evaluation?.status === "Aprobado"
-      ? "bg-emerald-500/25 text-white border-emerald-400 dark:bg-emerald-400/25 dark:text-white dark:border-emerald-500/40"
+      ? "bg-[#d8f5e0] border-[#0b7f2a] text-white font-semibold dark:bg-emerald-400/25 dark:text-white dark:border-emerald-500/40"
       : "bg-amber-100/60 text-amber-900 border-amber-900/70 dark:bg-transparent dark:text-[#f4d66a] dark:border-[#d9b95b]"
     : "bg-[color:var(--soft)] text-[color:var(--accent-2)] border-[color:var(--line)] dark:bg-[color:var(--panel-bg)] dark:text-[color:var(--accent)] dark:border-[color:var(--line)]";
 
